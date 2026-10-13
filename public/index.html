@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090d18">
+<title>HanzzX Cloud</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:#090d18;color:#f5f7ff;font-family:Arial,sans-serif}
+main{max-width:420px;margin:40px auto}
+.logo{background:#7357ff;border-radius:18px;padding:20px;display:inline-block;font-size:24px;font-weight:bold}
+p{color:#a5aec5;line-height:1.6}
+.panel{background:#111827;border:1px solid #293249;border-radius:18px;padding:20px;margin-top:20px}
+button{width:100%;padding:14px;background:#7357ff;color:white;border:0;border-radius:10px;font-size:16px}
+</style>
+</head>
+<body>
+<main>
+<div class="logo">HX</div>
+<h1>HanzzX Cloud</h1>
+<p>Your Android. Your cloud.</p>
+<section class="panel">
+<h2>Cloud Phone</h2>
+<p>Kelola perangkat Android virtual lu dari satu tempat.</p>
+<p id="status">Memeriksa server...</p>
+<button onclick="checkServer()">Periksa koneksi</button>
+</section>
+<section class="panel">
+<h3>Fitur</h3>
+<p>📱 Remote Android: belum tersedia</p>
+<p>▶️ Google Play: belum dikonfigurasi</p>
+<p>☁️ Cloud Storage: belum dikonfigurasi</p>
+</section>
+</main>
+<script>
+async function checkServer(){
+const s=document.getElementById("status");
+s.textContent="Menghubungkan...";
+try{
+const r=await fetch("/api/health");
+if(!r.ok)throw Error();
+const d=await r.json();
+s.textContent="Backend: "+d.status;
+}catch(e){
+s.textContent="Backend belum terhubung.";
+}
+}
+checkServer();
+</script>
+</body>
+</html>
+  
